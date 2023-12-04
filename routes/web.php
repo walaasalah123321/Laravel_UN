@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\GetDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +68,8 @@ Route::prefix("blog")->group(function(){
     });
    
 });
-// Route::fallback(function(){
-//     return redirect('/');
-// });
+Route::get('login',function(){
+    return view("login");
+});
+Route::get('control',[ ExampleController::class,"show"]);
+Route::post('Logged',[GetDataController::class,"Data"])->name("logged");
