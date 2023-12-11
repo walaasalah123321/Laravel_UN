@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -11,7 +12,8 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        $allcar=Car::get();
+        return view("AllCar",compact('allcar'));
     }
 
     /**
@@ -19,7 +21,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        //
+        return view("addCar");
     }
 
     /**
@@ -27,8 +29,18 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // dd($request);
+
+        
+        $car=new Car;
+        $car->title=$request->title;
+        $car->description=$request->description;
+        $car->published=(isset($request->published))?1:0;
+        $car->save();
+        session()->flash("done","data Add successfully");
+        return redirect(route("addcar"));
+    
+     }
 
     /**
      * Display the specified resource.

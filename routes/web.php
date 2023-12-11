@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\GetDataController;
 
@@ -73,3 +75,15 @@ Route::get('login',function(){
 });
 Route::get('control',[ ExampleController::class,"show"]);
 Route::post('Logged',[GetDataController::class,"Data"])->name("logged");
+Route::post('car/store',[CarController::class,"store"])->name("store");
+Route::get('createCar',[CarController::class,"create"])->name("addcar");
+Route::get('allCar',[CarController::class,"index"])->name("allCar");
+Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
+    Route::get('/',[PostController::class,"create"])->name("add");
+    Route::post('/store',[PostController::class,"store"])->name("store");
+    Route::get('allPost',[PostController::class,"index"])->name("AllPost");
+
+});
+
+
+
