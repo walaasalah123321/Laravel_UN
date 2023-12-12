@@ -78,6 +78,11 @@ Route::post('Logged',[GetDataController::class,"Data"])->name("logged");
 Route::post('car/store',[CarController::class,"store"])->name("store");
 Route::get('createCar',[CarController::class,"create"])->name("addcar");
 Route::get('allCar',[CarController::class,"index"])->name("allCar");
+Route::get('updataCar/{id}',[CarController::class,"edit"]);
+Route::put('updataCar',[CarController::class,"update"])->name("updataCar");
+Route::get("showCar/{id}",[CarController::class,"show"])->name("showCar");
+Route::get('Delete/{id}',[CarController::class,"destroy"])->name("delete");
+
 Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
     Route::get('/',[PostController::class,"create"])->name("add");
     Route::post('/store',[PostController::class,"store"])->name("store");

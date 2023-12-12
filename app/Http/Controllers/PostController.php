@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
@@ -31,9 +32,11 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $publish = isset($request->published) ? 1 : 0;
+        $publish = isset($request->published) ;
         Post::create(array_merge($request->only($this->parameter),["published"=>$publish]));
-        session()->flash("done","Add  Post Sucessfuly");
+        // session()->flash("done","Add  Post Sucessfuly");
+        Alert::success('Success ', 'Successful add Post');
+
         return redirect()->back();
     }
 

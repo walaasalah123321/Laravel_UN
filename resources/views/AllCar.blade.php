@@ -20,6 +20,10 @@
         <th>Title</th>
         <th>Description</th>
         <th>Published</th>
+        <th>edit</th>
+        <th>shoe</th>
+
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -35,6 +39,11 @@
                 @else {{"NO"}}
                 @endif
                 </td> --}}
+            <td><a href="updataCar/{{$allcar->id}}">Edit</a></td>
+            <td><a href="showCar/{{$allcar->id}}">show</a></td>
+
+            <td><a href="{{route('delete',[$allcar->id])}}">Delete</a></td>
+
           </tr> 
         @endforeach
       

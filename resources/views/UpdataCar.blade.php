@@ -13,22 +13,27 @@
     @include("include.nav")
 <div class="container">
   <h2>Add new car data</h2>
-  <form action="{{route('store')}}" method="post">
+  <form action="{{route('updataCar')}}" method="post">
     @csrf
+    @method("PUT");
+
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+      <input type="hidden" name="id" value="{{$field->id}}">
+      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value="{{$field->title}}">
     </div>
     <div class="form-group">
       <label for="description">description:</label>
-      <textarea class="form-control" name="description" id="" cols="60" rows="3"></textarea>
+      <textarea class="form-control" name="description" id="" cols="60" rows="3">{{$field->description}}</textarea>
     </div>
     <div class="checkbox">
-      <label><input type="checkbox" name="published"> Published me</label>
+      <label><input type="checkbox" name="published" @checked($field->published) > Published me</label>
     </div>
-    <button type="submit" class="btn btn-default">Insert</button>
+    <button type="submit" class="btn btn-default">updata</button>
   </form>
 </div>
+
+
 
 </body>
 </html>

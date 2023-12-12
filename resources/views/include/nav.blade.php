@@ -10,4 +10,6 @@
         <li><a href="{{route('Post.AllPost')}}">all Posts</a></li>
       </ul>
     </div>
+    @include('sweetalert::alert')
+
   </nav>
