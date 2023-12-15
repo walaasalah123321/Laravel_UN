@@ -21,6 +21,9 @@
         <th>author</th>
         <th>Description</th>
         <th>Published</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
       </tr>
     </thead>
     <tbody>
@@ -32,12 +35,10 @@
             <td>{{$allposts->description}}</td>
             
             <td>{{ ($allposts->published)?"YES":"NO"}}</td>
-            {{-- <td>
-                @if($allcar->published)
-                {{"YES"}}
-                @else {{"NO"}}
-                @endif
-                </td> --}}
+           
+             <td ><a href="{{route('Post.EditPost',[$allposts->id])}}">Edit</a></td> 
+             <td ><a href="{{route('Post.deletPost',[$allposts->id])}}">Delete</a></td> 
+
           </tr> 
         @endforeach
       

@@ -9,7 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PostController extends Controller
 {
-    protected $parameter=["title","author","description"];
+    protected $parameter=["title","author","description","published"];
     /**
      * Display a listing of the resource.
      */
@@ -32,8 +32,8 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $publish = isset($request->published) ;
-        Post::create(array_merge($request->only($this->parameter),["published"=>$publish]));
+        $request["published"] = isset($request->published) ;
+        Post::create($request->only($this->parameter));
         // session()->flash("done","Add  Post Sucessfuly");
         Alert::success('Success ', 'Successful add Post');
 
@@ -51,24 +51,35 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit( $post_id)
     {
-        //
+        $post=Post::find($post_id);
+        return view("Post.Updatapost",compact('post'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request,  $post_id)
     {
-        //
+        $post=Post::where("id",$post_id);
+        $request["published"]=isset($request->published);
+        $post->update($request->only($this->parameter));
+
+        Alert::success('Success ', 'Successful Updata Post');
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy( $post_id)
     {
-        //
+        $post=Post::Where("id",$post_id);
+        $post->delete();
+        Alert::success('Delete ', 'Successful Delete Post');
+        return redirect()->back();
+        
     }
 }

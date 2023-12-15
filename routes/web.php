@@ -87,7 +87,9 @@ Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
     Route::get('/',[PostController::class,"create"])->name("add");
     Route::post('/store',[PostController::class,"store"])->name("store");
     Route::get('allPost',[PostController::class,"index"])->name("AllPost");
-
+    Route::get('edit/{id}',[PostController::class,"edit"])->name("EditPost");
+    Route::put('updataPost/{id}',[PostController::class,"update"])->name("updataPost");
+    Route::get('Delete/{id}',[PostController::class,"destroy"])->name("deletPost");
 });
 
 
