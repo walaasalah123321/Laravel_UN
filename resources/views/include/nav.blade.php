@@ -8,6 +8,10 @@
         <li><a href="{{route('addcar')}}">insert car</a></li>
         <li><a href="{{route('Post.add')}}">insert Post</a></li>
         <li><a href="{{route('Post.AllPost')}}">all Posts</a></li>
+        <li><a href="{{route('trashed')}}">trashedCar</a></li>
+        <li><a href="{{route('Post.trashed')}}">trashedPost</a></li>
+
+
       </ul>
     </div>
     @include('sweetalert::alert')

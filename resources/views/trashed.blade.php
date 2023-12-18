@@ -12,31 +12,36 @@
     @include("include.nav")
 
 <div class="container">
-  <h2>Car List</h2>
+  <h2>Trashed Car</h2>
   {{-- <p>The .table-hover class enables a hover state on table rows:</p>             --}}
   <table class="table table-hover">
     <thead>
       <tr>
         <th>Title</th>
-        <th>author</th>
         <th>Description</th>
         <th>Published</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <td>Delete</td>
+        <td>Restore</td>
+
       </tr>
     </thead>
     <tbody>
-        @foreach ($posts as   $allposts)
+        @foreach ( $trashedCar as   $trashedCar)
             <tr>
-            <td>{{$allposts->title}}</td>
-            <td>{{$allposts->author}}</td>
-
-            <td>{{$allposts->description}}</td>
+            <td>{{$trashedCar->title}}</td>
+            <td>{{$trashedCar->description}}</td>
             
-            <td>{{ ($allposts->published)?"YES":"NO"}}</td>
-           
-             <td ><a href="{{route('Post.EditPost',[$allposts->id])}}">Edit</a></td> 
-             <td ><a href="{{route('Post.deletPost',[$allposts->id])}}" data-confirm-delete="true">Delete</a></td> 
+            <td>{{ ($trashedCar->published)?"YES":"NO"}}</td>
+            {{-- <td>
+                @if($trashedCar->published)
+                {{"YES"}}
+                @else {{"NO"}}
+                @endif
+                </td> --}}
+            <td><a  href="{{route('forceDelet',[$trashedCar->id])}}" data-confirm-delete="true" >Force Delete</a></td>
+            <td><a  href="{{route('RestoreCar',[$trashedCar->id])}}" >Restore</a></td>
+
+          
           </tr> 
         @endforeach
       

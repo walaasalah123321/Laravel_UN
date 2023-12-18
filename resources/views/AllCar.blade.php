@@ -41,8 +41,7 @@
                 </td> --}}
             <td><a href="updataCar/{{$allcar->id}}">Edit</a></td>
             <td><a href="showCar/{{$allcar->id}}">show</a></td>
-
-            <td><a href="{{route('delete',[$allcar->id])}}">Delete</a></td>
+            <td><a  href="{{route('delete',[$allcar->id])}}" data-confirm-delete="true" >Delete</a></td>
 
           </tr> 
         @endforeach

@@ -13,31 +13,37 @@
     
     @include("include.nav")
 <div class="container">
-    @if(session("done"))
-    <h3 style="background-color: green"> {{session("done")}}</h3>
-    @endif
+{{--   
     @if($errors->any())
     @foreach ($errors->all() as $error)
     <h3 style="background-color: red"> {{$error}}</h3>
-
     @endforeach
-    @endif
+    @endif --}}
   <h2>Add new Post </h2>
   <form action="{{route('Post.store')}}" method="post">
     @csrf
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+      <input type="text" class="form-control"  id="title" placeholder="Enter title" name="title" value="{{old('title')}}">
     </div>
+    @error("title")
+      <h4 style="color: red">* title is required</h4>
+    @enderror
   
     <div class="form-group">
         <label for="author">author:</label>
-        <input type="text" class="form-control" id="author" placeholder="Enter author" name="author">
+        <input type="text" class="form-control" id="author" placeholder="Enter author" name="author" value="{{old('author')}}">
     </div>
+    @error("author")
+    <h4 style="color: red">* Auther is required</h4>
+  @enderror
     <div class="form-group">
       <label for="description">description:</label>
-      <textarea class="form-control" name="description" id="" cols="60" rows="3"></textarea>
+      <textarea class="form-control" name="description" id="" cols="60" rows="3">{{old('description')}}</textarea>
     </div>
+    @error("description")
+    <h4 style="color: red">* description is required</h4>
+  @enderror
     <div class="checkbox">
       <label><input type="checkbox" name="published"> Published me</label>
     </div>

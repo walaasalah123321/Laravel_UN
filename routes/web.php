@@ -81,7 +81,12 @@ Route::get('allCar',[CarController::class,"index"])->name("allCar");
 Route::get('updataCar/{id}',[CarController::class,"edit"]);
 Route::put('updataCar',[CarController::class,"update"])->name("updataCar");
 Route::get("showCar/{id}",[CarController::class,"show"])->name("showCar");
-Route::get('Delete/{id}',[CarController::class,"destroy"])->name("delete");
+Route::DELETE('Delete/{id}',[CarController::class,"destroy"])->name("delete");
+Route::get('trashed',[CarController::class,"trashed"])->name("trashed");
+Route::DELETE('forceDelet/{id}',[CarController::class,"forceDelet"])->name("forceDelet");
+Route::get('forceDelet/{id}',[CarController::class,"RestoreCar"])->name("RestoreCar");
+
+
 
 Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
     Route::get('/',[PostController::class,"create"])->name("add");
@@ -89,7 +94,12 @@ Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
     Route::get('allPost',[PostController::class,"index"])->name("AllPost");
     Route::get('edit/{id}',[PostController::class,"edit"])->name("EditPost");
     Route::put('updataPost/{id}',[PostController::class,"update"])->name("updataPost");
-    Route::get('Delete/{id}',[PostController::class,"destroy"])->name("deletPost");
+    Route::DELETE('Delete/{id}',[PostController::class,"destroy"])->name("deletPost");
+    Route::get('trashed',[PostController::class,"trashed"])->name("trashed");
+    Route::DELETE('forceDelet/{id}',[PostController::class,"forceDelet"])->name("forceDelet");
+    Route::get('restore/{id}',[PostController::class,"Restore"])->name("restore");
+
+
 });
 
 

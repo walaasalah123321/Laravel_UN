@@ -15,6 +15,10 @@ class CarController extends Controller
      */
     public function index()
     {
+        $title = 'Delete Car!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         $allcar=Car::get();
         return view("AllCar",compact('allcar'));
     }
@@ -32,9 +36,8 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-
-        
+        $data=$request->validate(["title"=>"required","description"=>"required|min:5"]);
+        // dd($request);        
         // $car=new Car;
         // $car->title=$request->title;
         // $car->description=$request->description;
@@ -42,7 +45,7 @@ class CarController extends Controller
         // $car->save();
         // session()->flash("done","data Add successfully");
 
-        $data=$request->only($this->columns);
+        
         $data["published"]=isset($request->published);
         Car::create($data);
         // Alert::success('Success ', 'Successful add Car');
@@ -90,11 +93,25 @@ class CarController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        
-        $field=Car::where('id',$id)->Delete();
-
+    {     
+        $field=Car::where('id',$id)->DELETE();
         Alert::success("delete","delete  Car Successful");
         return redirect()->back();
+    }
+    public function trashed(){
+        $title = 'ForceDelete Car!';
+        $text = "Are you sure you want to delete Ever?";
+        confirmDelete($title, $text);
+        $trashedCar=Car::onlyTrashed()->get();
+        return view("trashed",compact('trashedCar'));
+    }
+    public function forceDelet($id){
+        Car::where('id',$id)->forceDelete();
+        Alert::success("delete","ForceDelet  Car Successful");
+    return redirect()->back();
+    }
+    public function  RestoreCar($id)  {
+    Car::where('id',$id)->restore();
+    return redirect(route('allCar'));
     }
 }
