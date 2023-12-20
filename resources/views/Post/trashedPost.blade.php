@@ -23,6 +23,7 @@
         <th>Published</th>
         <td>Delete</td>
         <td>restore</td>
+        <td>show</td>
         
       </tr>
     </thead>
@@ -41,6 +42,8 @@
                 </td> --}}
             <td><a  href="{{route('Post.forceDelet',[$trashedPost->id])}}" data-confirm-delete="true" >Force Delete</a></td>
             <td><a  href="{{route('Post.restore',[$trashedPost->id])}}">restore</a></td>
+            <td><a  href="{{route('Post.show',[$trashedPost->id])}}">show</a></td>
+
 
           
           </tr> 

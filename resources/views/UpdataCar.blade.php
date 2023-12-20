@@ -13,7 +13,7 @@
     @include("include.nav")
 <div class="container">
   <h2>Add new car data</h2>
-  <form action="{{route('updataCar')}}" method="post">
+  <form action="{{route('updataCar')}}" method="post" enctype="multipart/form-data">
     @csrf
     @method("PUT");
 
@@ -25,6 +25,17 @@
     <div class="form-group">
       <label for="description">description:</label>
       <textarea class="form-control" name="description" id="" cols="60" rows="3">{{$field->description}}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" class="form-control" id="image" name="image">
+      
+      @error('image')
+        {{ $message }}
+      @enderror
+      <br>
+      <img src="{{ asset('assets/images/'.$field->image)}}" alt="car" style="width:200px;">
+    
     </div>
     <div class="checkbox">
       <label><input type="checkbox" name="published" @checked($field->published) > Published me</label>

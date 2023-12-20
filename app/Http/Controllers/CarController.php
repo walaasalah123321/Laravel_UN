@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\trait\Common;
 use Hamcrest\Core\AllOf;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CarController extends Controller
 {
+    use Common;
     protected $columns=["title","description","published"];
     /**
      * Display a listing of the resource.
@@ -36,7 +38,12 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->validate(["title"=>"required","description"=>"required|min:5"]);
+        $messages=$this->massages();
+        $data=$request->validate(
+            ["title"=>"required",
+            "description"=>"required|min:5",
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ],$messages);
         // dd($request);        
         // $car=new Car;
         // $car->title=$request->title;
@@ -47,6 +54,7 @@ class CarController extends Controller
 
         
         $data["published"]=isset($request->published);
+        $data["image"]=$this->uploadFile($request->image,"assets/images");
         Car::create($data);
         // Alert::success('Success ', 'Successful add Car');
 
@@ -80,10 +88,22 @@ class CarController extends Controller
      */
     public function update(Request $request)
     {
+        $messages=$this->massages();
+        $data=$request->validate(
+            ["title"=>"required",
+            "description"=>"required|min:5",
+            'image' => 'mimes:png,jpg,jpeg|max:2048',
+        ],$messages);
         $request["published"]=isset($request->published);
-      
-        $field=Car::where("id",$request->id);
-        $field->update($request->only($this->columns));
+        $field=Car::findOrFail($request->id);
+        // $data["image"]= $request->has("image")?$this->uploadFile($request->image,"assets/images"):$field["image"];
+        if($request->has("image")){
+            //to delete old image
+        unlink("assets/images/$field[image]");
+        $data["image"]=$this->uploadFile($request->image,"assets/images");
+        }
+        else $data["image"]=$field["image"];
+        $field->update($data);
        Alert::success("Successfully","updata Car Successful");
        return redirect()->back();
 
@@ -106,12 +126,21 @@ class CarController extends Controller
         return view("trashed",compact('trashedCar'));
     }
     public function forceDelet($id){
-        Car::where('id',$id)->forceDelete();
+        $Car=Car::onlyTrashed()->find($id);
+        unlink("assets/images/$Car[image]");
+        $Car->forceDelete();
         Alert::success("delete","ForceDelet  Car Successful");
     return redirect()->back();
     }
     public function  RestoreCar($id)  {
     Car::where('id',$id)->restore();
     return redirect(route('allCar'));
+    }
+   public  function massages(){
+      return  [
+            "title.required" =>"العنوان مطلوب",
+            "description.required" =>"الوصف مطلوب",
+            "description.min" =>" الوصف يجب ان يزيد عن 5",
+        ];
     }
 }

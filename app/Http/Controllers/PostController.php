@@ -103,4 +103,9 @@ class PostController extends Controller
         return redirect()->back();
 
     }
+    public function showtrash($id){
+        $trashedshow=Post::onlyTrashed()->find($id);
+        return view("Post.trashedShow",compact('trashedshow'));
+
+    }
 }

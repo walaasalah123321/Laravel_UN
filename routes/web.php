@@ -20,9 +20,12 @@ use App\Http\Controllers\GetDataController;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/test/{id}', function ($ids) {
-//     return "the ID is: $ids";
-// });
+Route::get('/test1', function () {
+    return view('test1');
+});
+Route::get('/image', function () {
+    return view('image');
+});
 // Route::get('/test1/{id?}', function ($ids=0) {
 //     return "the ID is: $ids";
 // });
@@ -98,9 +101,12 @@ Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
     Route::get('trashed',[PostController::class,"trashed"])->name("trashed");
     Route::DELETE('forceDelet/{id}',[PostController::class,"forceDelet"])->name("forceDelet");
     Route::get('restore/{id}',[PostController::class,"Restore"])->name("restore");
+    Route::get('trashed/show/{id}',[PostController::class,"showtrash"])->name("show");
+
 
 
 });
 
 
 
+Route::post('/image',[ ExampleController::class,"upload"])->name("upload");

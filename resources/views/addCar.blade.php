@@ -12,25 +12,38 @@
     
     @include("include.nav")
 <div class="container">
-  @if($errors->any())
+  {{-- @if($errors->any())
   @foreach ( $errors->all(); as $error)
     <h3 style="background-color:red"> {{ $error }}</h3>
   @endforeach
-  @endif
+  @endif --}}
 
   <h2>Add new car data</h2>
-  <form action="{{route('store')}}" method="post">
+  <form action="{{route('store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value="{{old('title')}}">
     </div>
+    @error("title")
+    <h4 style="color: red">{{$message}}</h4>
+    @enderror
     <div class="form-group">
       <label for="description">description:</label>
       <textarea class="form-control" name="description" id="" cols="60" rows="3">{{old('description')}}</textarea>
     </div>
+    @error("description")
+    <h4 style="color: red">{{$message}}</h4>
+    @enderror
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" class="form-control" id="image" placeholder="Enter image" name="image">
+      @error('image')
+        {{ $message }}
+      @enderror
+    </div>
     <div class="checkbox">
-      <label><input type="checkbox" name="published"> Published me</label>
+      <label><input type="checkbox" name="published"  @checked(old('published'))> Published me</label>
     </div>
     <button type="submit" class="btn btn-default">Insert</button>
   </form>
