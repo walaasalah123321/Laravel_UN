@@ -107,6 +107,22 @@ Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
 
 });
 
+Route::group(["prefix"=>"Hospital" ,"as" =>"Hospital."],function () {
+    Route::get('/index',function(){
+
+      return view("Hospital.index");
+    })->name("index");
+    Route::get('/404',function(){
+
+        return view("include.404");
+      })->name("404");
+      Route::get('/contact',function(){
+
+        return view("include.contact");
+      })->name("contact");
+  
+});
+
 
 
 Route::post('/image',[ ExampleController::class,"upload"])->name("upload");

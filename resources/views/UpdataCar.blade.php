@@ -34,7 +34,7 @@
         {{ $message }}
       @enderror
       <br>
-      <img src="{{ asset('assets/images/'.$field->image)}}" alt="car" style="width:200px;">
+      <img src="{{ asset('assets/images/'.$field->image) }}" alt="car" style="width:200px;">
     
     </div>
     <div class="checkbox">

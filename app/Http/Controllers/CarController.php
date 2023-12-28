@@ -94,7 +94,6 @@ class CarController extends Controller
             "description"=>"required|min:5",
             'image' => 'mimes:png,jpg,jpeg|max:2048',
         ],$messages);
-        $request["published"]=isset($request->published);
         $field=Car::findOrFail($request->id);
         // $data["image"]= $request->has("image")?$this->uploadFile($request->image,"assets/images"):$field["image"];
         if($request->has("image")){
@@ -102,7 +101,8 @@ class CarController extends Controller
         unlink("assets/images/$field[image]");
         $data["image"]=$this->uploadFile($request->image,"assets/images");
         }
-        else $data["image"]=$field["image"];
+       // else $data["image"]=$field["image"];
+        $request["published"]=isset($request->published);
         $field->update($data);
        Alert::success("Successfully","updata Car Successful");
        return redirect()->back();
