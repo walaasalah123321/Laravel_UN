@@ -1,4 +1,4 @@
-@extends("layout.pages")
+@extends("layout.pages",["key"=>"404","title"=>"error 404"])
 @section("content")
 <section class="error-page section">
     <div class="container">

@@ -37,6 +37,18 @@
       <img src="{{ asset('assets/images/'.$field->image) }}" alt="car" style="width:200px;">
     
     </div>
+    <div class="form-group">
+      <label for="image">category name:</label>
+    <select name="Category_id" id="" >
+        @foreach ($allcategory as $category)
+        <option value="{{$category->id}}" @selected($category->id==$field->Category_id)>{{$category->cat_name}}</option>
+
+        @endforeach
+    </select>  
+    @error('Category_id')
+    {{ $message }}
+    @enderror
+    </div> 
     <div class="checkbox">
       <label><input type="checkbox" name="published" @checked($field->published) > Published me</label>
     </div>

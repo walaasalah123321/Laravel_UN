@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Category;
 use App\trait\Common;
 use Hamcrest\Core\AllOf;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class CarController extends Controller
      */
     public function create()
     {
-        return view("addCar");
+        $allcategory=Category::get();
+        return view("addCar",compact('allcategory'));
     }
 
     /**
@@ -43,6 +45,7 @@ class CarController extends Controller
             ["title"=>"required",
             "description"=>"required|min:5",
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'Category_id'=>'required',
         ],$messages);
         // dd($request);        
         // $car=new Car;
@@ -57,7 +60,6 @@ class CarController extends Controller
         $data["image"]=$this->uploadFile($request->image,"assets/images");
         Car::create($data);
         // Alert::success('Success ', 'Successful add Car');
-
         return redirect("allCar");
     
      }
@@ -78,8 +80,9 @@ class CarController extends Controller
     public function edit(string $id)
     {
         $field=Car::findOrFail($id);
+        $allcategory=Category::get();
        
-        return view("UpdataCar",compact("field"));
+        return view("UpdataCar",compact("field","allcategory"));
         
     }
 
@@ -93,6 +96,8 @@ class CarController extends Controller
             ["title"=>"required",
             "description"=>"required|min:5",
             'image' => 'mimes:png,jpg,jpeg|max:2048',
+            'Category_id'=>'required',
+
         ],$messages);
         $field=Car::findOrFail($request->id);
         // $data["image"]= $request->has("image")?$this->uploadFile($request->image,"assets/images"):$field["image"];
@@ -141,6 +146,7 @@ class CarController extends Controller
             "title.required" =>"العنوان مطلوب",
             "description.required" =>"الوصف مطلوب",
             "description.min" =>" الوصف يجب ان يزيد عن 5",
+            "Category_id.required"=>"choose the category "
         ];
     }
 }

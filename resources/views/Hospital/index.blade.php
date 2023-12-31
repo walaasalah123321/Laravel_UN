@@ -1,1 +1,1 @@
-@extends("layout.home")
+@extends("layout.home",["key"=>"index","title"=>" Hospital Home"])

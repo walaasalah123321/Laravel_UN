@@ -19,6 +19,7 @@
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th>category Name</th>
         <th>Published</th>
         <th>edit</th>
         <th>shoe</th>
@@ -32,6 +33,7 @@
             <td>{{$allcar->title}}</td>
             <td>{{$allcar->description}}</td>
             
+            <td>{{$allcar->Car->cat_name}}</td>
             <td>{{ ($allcar->published)?"YES":"NO"}}</td>
             {{-- <td>
                 @if($allcar->published)

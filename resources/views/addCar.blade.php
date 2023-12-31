@@ -42,6 +42,20 @@
         {{ $message }}
       @enderror
     </div>
+    <div class="form-group">
+      <label for="image">category name:</label>
+    <select name="Category_id" id="" >
+        <option value="">Select Category</option>
+        @foreach ($allcategory as $category)
+        <option value="{{$category->id}}"  @selected($category->id== old('Category_id'))>{{$category->cat_name}}</option>
+
+        @endforeach
+    </select>  
+    @error('Category_id')
+    {{ $message }}
+    @enderror
+    </div> 
+    
     <div class="checkbox">
       <label><input type="checkbox" name="published"  @checked(old('published'))> Published me</label>
     </div>

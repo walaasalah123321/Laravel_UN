@@ -8,6 +8,10 @@
 </head>
 <body>
     <h1>{{$field->title}}</h1>
+    <h1>{{$field->description}}</h1>
+    <h1>{{$field->Car->cat_name}}</h1>
+
+
     <h3>  {{($field->published)?"Published":"Not Published"}}</h3>
     
 </body>
