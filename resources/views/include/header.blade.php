@@ -45,24 +45,24 @@
                         <div class="main-menu">
                             <nav class="navigation">
                                 <ul class="nav menu">
-                                    <li @if($key=='index')class="active" @endif ><a href="{{route('Hospital.index')}}">Home <i class="icofont-rounded-down"></i></a>
+                                    <li class="{{request()->routeIS('Hospital.index')?'active':''}}"><a href="{{route('Hospital.index')}}">Home <i class="icofont-rounded-down"></i></a>
                                         <ul class="dropdown">
                                             <li><a href="{{route('Hospital.index')}}">Home Page 1</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">Doctos </a></li>
                                     <li><a href="#">Services </a></li>
-                                    <li><a href="#">Pages <i class="icofont-rounded-down"></i></a>
+                                    <li><a href="#" class="{{request()->routeIS('Hospital.404')?'active':''}}">Pages <i class="icofont-rounded-down"></i></a>
                                         <ul class="dropdown">
-                                            <li><a href="{{route('Hospital.404')}}">404 Error</a></li>
+                                            <li  class="{{request()->routeIS('Hospital.404')?'active':''}}"><a href="{{route('Hospital.404')}}">404 Error</a></li>
                                         </ul>
                                     </li>
-                                    <li @if($key=='blog')class="active" @endif><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
+                                    <li ><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
                                         <ul class="dropdown">
                                             <li><a href="blog-single.html">Blog Details</a></li>
                                         </ul>
                                     </li>
-                                    <li @if($key=='contact')class="active" @endif><a href="{{route('Hospital.contact')}}">Contact Us</a></li>
+                                    <li class="{{request()->routeIS('Hospital.contact')?'active':''}}" ><a href="{{route('Hospital.contact')}}">Contact Us</a></li>
                                 </ul>
                             </nav>
                         </div>

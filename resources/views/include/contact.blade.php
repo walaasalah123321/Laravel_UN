@@ -1,4 +1,4 @@
-@extends("layout.pages",["key" => "contact","title"=>"Contact us"])
+@extends("layout.pages",["title"=>"Contact us"])
 @section("content")
 
 
