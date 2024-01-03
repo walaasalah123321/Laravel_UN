@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\GetDataController;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use App\Http\Controllers\GetDataController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/Welcom', function () {
     return view('welcome');
 });
 Route::get('/test1', function () {
@@ -26,25 +28,25 @@ Route::get('/test1', function () {
 Route::get('/image', function () {
     return view('image');
 });
-// Route::get('/test1/{id?}', function ($ids=0) {
-//     return "the ID is: $ids";
-// });
+Route::get('/test1/{id?}', function ($ids=0) {
+    return "the ID is: $ids";
+});
 
-// Route::get('/test2/{id?}', function ($ids=0) {
-//     return "the ID is: $ids";
-// })->whereNumber(['id']);
+Route::get('/test2/{id?}', function ($ids=0) {
+    return "the ID is: $ids";
+})->whereNumber(['id']);
 
-// Route::get('/test3/{name?}', function ($name=null) {
-//     return "the name is: $name";
-// })->whereAlpha(['name']);
+Route::get('/test3/{name?}', function ($name=null) {
+    return "the name is: $name";
+})->whereAlpha(['name']);
 
-// Route::get('/test4/{age}/{name}', function ($agevalue,$namevalue) {
-//     return "the age is: $agevalue and name is: $namevalue" ;
-// })->where(['name'=>"[a-zA-Z0-9]+",'age'=>"[0-9]+"]);
+Route::get('/test4/{age}/{name}', function ($agevalue,$namevalue) {
+    return "the age is: $agevalue and name is: $namevalue" ;
+})->where(['name'=>"[a-zA-Z0-9]+",'age'=>"[0-9]+"]);
 
-// Route::get('/product/{category}', function ($cat) {
-//     return "the category  is: $cat" ;
-// })->whereIn("category",['pc','laptop']);
+Route::get('/product/{category}', function ($cat) {
+    return "the category  is: $cat" ;
+})->whereIn("category",['pc','laptop']);
 Route::get('food', function () {
     return view("food");
 });
@@ -73,9 +75,11 @@ Route::prefix("blog")->group(function(){
     });
    
 });
+
 Route::get('login',function(){
     return view("login");
 });
+
 Route::get('control',[ ExampleController::class,"show"]);
 Route::post('Logged',[GetDataController::class,"Data"])->name("logged");
 Route::post('car/store',[CarController::class,"store"])->name("store");
@@ -123,6 +127,9 @@ Route::group(["prefix"=>"Hospital" ,"as" =>"Hospital."],function () {
   
 });
 
-
-
 Route::post('/image',[ ExampleController::class,"upload"])->name("upload");
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
