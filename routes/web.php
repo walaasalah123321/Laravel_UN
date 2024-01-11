@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\GetDataController;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Mockery\Matcher\Contains;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 |
 */
 
-Route::get('/Welcom', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test1', function () {
@@ -81,6 +83,7 @@ Route::get('login',function(){
 });
 
 Route::get('control',[ ExampleController::class,"show"]);
+
 Route::post('Logged',[GetDataController::class,"Data"])->name("logged");
 Route::post('car/store',[CarController::class,"store"])->name("store");
 Route::get('createCar',[CarController::class,"create"])->name("addcar");
@@ -120,11 +123,9 @@ Route::group(["prefix"=>"Hospital" ,"as" =>"Hospital."],function () {
 
         return view("include.404");
       })->name("404");
-      Route::get('/contact',function(){
+      Route::get('/contact',[ContactController::class,"create"])->name("contact");
+      Route::post('/contactStore',[ContactController::class,"store"])->name("store");
 
-        return view("include.contact");
-      })->name("contact");
-  
 });
 
 Route::post('/image',[ ExampleController::class,"upload"])->name("upload");
@@ -133,3 +134,5 @@ Route::post('/image',[ ExampleController::class,"upload"])->name("upload");
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/SessionCreate', [ExampleController::class, "SessionCreate"]);

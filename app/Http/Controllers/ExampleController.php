@@ -18,4 +18,8 @@ class ExampleController extends Controller
         $request->image->move($path, $file_name);
         return 'Uploaded';
     }
+   public function SessionCreate(){
+        session()->put("testSession","my first session Value");
+        return "session Created ".session("testSession");
+    }
 }

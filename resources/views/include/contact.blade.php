@@ -18,23 +18,38 @@
                         <h2>Contact With Us</h2>
                         <p>If you have any questions please fell free to contact with us.</p>
                         <!-- Form -->
-                        <form class="form" method="post" action="mail/mail.php">
+                        <form class="form" method="post" action="{{route('Hospital.store')}}">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <input type="text" name="name" placeholder="Name" required="">
                                     </div>
+                                    @error("name")
+                                    <p style="color: red">{{$message}}</p>
+                                    @enderror
                                 </div>
+                              
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <input type="email" name="email" placeholder="Email" required="">
                                     </div>
+                                    @error("email")
+                                    <p style="color: red">{{$message}}</p>
+                                        
+                                    @enderror
                                 </div>
+                               
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <input type="text" name="phone" placeholder="Phone" required="">
                                     </div>
+                                    @error("phone")
+                                    <p style="color: red">{{$message}}</p>
+                                        
+                                    @enderror
                                 </div>
+                              
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <input type="text" name="subject" placeholder="Subject" required="">
