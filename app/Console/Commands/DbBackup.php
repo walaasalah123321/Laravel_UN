@@ -30,7 +30,7 @@ class DbBackup extends Command
         if (! Storage::exists('backup')) {
             Storage::makeDirectory('backup');
         }
-        $filename = "backup_" . strtotime(now()).".sql";
+        $filename = "backup_" . strtotime(now()).".txt";
     
         $command = "mysqldump --user=" . env('DB_USERNAME') ." --password=" . env('DB_PASSWORD')." --host=" . env('DB_HOST') . " " . env('DB_DATABASE'). " > " . storage_path() . "/app/backup/" . $filename;
 
