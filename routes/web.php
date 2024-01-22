@@ -1,14 +1,15 @@
 <?php
 
+use Mockery\Matcher\Contains;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\GetDataController;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
-use Mockery\Matcher\Contains;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,19 +86,24 @@ Route::get('login',function(){
 Route::get('control',[ ExampleController::class,"show"]);
 
 Route::post('Logged',[GetDataController::class,"Data"])->name("logged");
-Route::post('car/store',[CarController::class,"store"])->name("store");
-Route::get('createCar',[CarController::class,"create"])->name("addcar");
-Route::get('allCar',[CarController::class,"index"])->name("allCar");
-Route::get('updataCar/{id}',[CarController::class,"edit"]);
-Route::put('updataCar',[CarController::class,"update"])->name("updataCar");
-Route::get("showCar/{id}",[CarController::class,"show"])->name("showCar");
-Route::DELETE('Delete/{id}',[CarController::class,"destroy"])->name("delete");
-Route::get('trashed',[CarController::class,"trashed"])->name("trashed");
-Route::DELETE('forceDelet/{id}',[CarController::class,"forceDelet"])->name("forceDelet");
-Route::get('forceDelet/{id}',[CarController::class,"RestoreCar"])->name("RestoreCar");
 
 
-
+Route::group(
+    [
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+        Route::post('car/store',[CarController::class,"store"])->name("store");
+        Route::get('createCar',[CarController::class,"create"])->name("addcar");
+        Route::get('allCar',[CarController::class,"index"])->name("allCar");
+        Route::get('updataCar/{id}',[CarController::class,"edit"]);
+        Route::put('updataCar',[CarController::class,"update"])->name("updataCar");
+        Route::get("showCar/{id}",[CarController::class,"show"])->name("showCar");
+        Route::DELETE('Delete/{id}',[CarController::class,"destroy"])->name("delete");
+        Route::get('trashed',[CarController::class,"trashed"])->name("trashed");
+        Route::DELETE('forceDelet/{id}',[CarController::class,"forceDelet"])->name("forceDelet");
+        Route::get('forceDelet/{id}',[CarController::class,"RestoreCar"])->name("RestoreCar");
+    });
 Route::group(["prefix"=>"Post" ,"as" =>"Post."],function () {
     Route::get('/',[PostController::class,"create"])->name("add");
     Route::post('/store',[PostController::class,"store"])->name("store");

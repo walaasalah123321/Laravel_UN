@@ -1,7 +1,13 @@
 @extends("layout.pages",["title"=>"Contact us"])
 @section("content")
 
+    @if (Session("success"))
+    <div class=" alert alert-success">
+  
+    {{Session("success")}}
+    </div>
 
+    @endif
 <section class="contact-us section">
     <div class="container">
         <div class="inner">

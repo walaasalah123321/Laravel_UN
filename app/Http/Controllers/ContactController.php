@@ -31,8 +31,9 @@ class ContactController extends Controller
     public function store(ContactRequest $request)
     {
         
+        $data=$request->only(["name","email","subject","message","phone"]);
         Mail::to("walaaslah056@gmail.com")->send(new ContactMail($request));
-        return redirect()->back();
+        return redirect()->back()->with("success","send sucessfuly");
     }
     /**
      * Display the specified resource.

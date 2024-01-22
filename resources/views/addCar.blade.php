@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 <head>
   <title>Add Car</title>
   <meta charset="utf-8">
@@ -18,11 +18,11 @@
   @endforeach
   @endif --}}
 
-  <h2>Add new car data</h2>
+  <h2>{{__('messages.title')}}</h2>
   <form action="{{route('store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
-      <label for="title">Title:</label>
+      <label for="title">{{__('messages.nameTitle')}}</label>
       <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value="{{old('title')}}">
     </div>
     @error("title")
